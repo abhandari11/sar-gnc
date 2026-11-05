@@ -1,0 +1,15 @@
+# Basic demo: launch from base camp, climb over Seealpsee, transit to the Meglisalp search area,
+# orbit its centre, return and hold over the lake.
+name: gildo_demo_meglisalp
+scenario: alpstein_meglisalp       # configs/<scenario>.yaml (site + search region)
+aircraft: gildo                    # configs/aircraft/<aircraft>.yaml
+wind: {speed_mps: 6, from_deg: 240}
+mission:
+  airspeed_mps: 18
+  terrain_clearance_m: 120         # above the highest terrain in each leg's corridor / orbit disc
+  corridor_half_width_m: 150
+  waypoints_m:
+    - {east: 0, north: 0}
+  orbit: {radius_m: 150, turns: 2}
+  home_hold_s: 60
+sim: {control_hz: 50, substeps: 4, t_max_s: 1800}

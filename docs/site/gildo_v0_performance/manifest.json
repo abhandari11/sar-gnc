@@ -1,0 +1,33 @@
+{
+  "run": "gildo_v0_performance",
+  "title": "Gildo v0 \u2014 aircraft",
+  "created": "2026-11-05 13:21 UTC",
+  "summary": {
+    "mass": "3.20 kg (airframe 1.05, battery 0.90, propulsion 0.30, avionics 0.30, payload 0.65)",
+    "wing": "span 2.00 m \u00b7 area 0.56 m\u00b2 \u00b7 AR 7.1 \u00b7 loading 56 N/m\u00b2",
+    "battery": "224 Wh (85% usable) \u00b7 hotel 18 W",
+    "stall (1 g)": "12.4 m/s @ 1150 m \u00b7 12.9 m/s @ 2000 m \u00b7 13.2 m/s @ 2500 m",
+    "speeds": "min 15.5 \u00b7 cruise 18 \u00b7 max level 28.8 m/s @ 2000 m",
+    "cruise @ 2000 m": "95 W \u00b7 120 min \u00b7 130 km",
+    "best endurance": "160 min at 13.9 m/s",
+    "best range": "137 km at 15.2 m/s",
+    "max climb": "7.7 m/s @ 1150 m \u00b7 7.2 m/s @ 2000 m \u00b7 6.8 m/s @ 2500 m",
+    "ceiling (0.5 m/s)": "> 6000 m ISA (no motor power lapse modelled)",
+    "full-throttle current": "20 A (limit 40 A)",
+    "turn radius": "57 m at 30\u00b0 / 39 m at 40\u00b0 (cruise) \u00b7 min 29 m",
+    "trim @ cruise": "\u03b1 2.4\u00b0 \u00b7 \u03b4e 0.5\u00b0 \u00b7 throttle 0.63",
+    "mode: phugoid": "\u03c9n 0.70 rad/s \u00b7 \u03b6 0.18",
+    "mode: short period": "\u03c9n 12.09 rad/s \u00b7 \u03b6 0.47",
+    "mode: dutch roll": "\u03c9n 3.06 rad/s \u00b7 \u03b6 0.10",
+    "mode: spiral": "doubles in 34.5 s",
+    "mode: roll": "halves in 0.1 s"
+  },
+  "artifacts": [
+    {
+      "file": "performance.png",
+      "title": "Steady performance",
+      "kind": "image",
+      "caption": "Level-flight battery power, endurance and range, and full-throttle climb vs airspeed at base (1150 m), 2000 m and 2500 m. Dashed = cruise, dotted = minimum airspeed."
+    }
+  ]
+}

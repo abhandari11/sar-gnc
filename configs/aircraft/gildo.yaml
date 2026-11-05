@@ -1,0 +1,77 @@
+# Gildo v0: small electric flying wing for mountain SAR. Units: SI, angles in degrees unless noted.
+name: Gildo
+version: v0
+
+geometry:
+  span_m: 2.00
+  wing_area_m2: 0.56          # AR = 7.1
+  mean_chord_m: 0.28
+
+mass_budget_kg:               # sums to the take-off mass
+  airframe: 1.05              # EPP/carbon wing, winglets, spar, servos
+  battery: 0.90               # 6S2P Li-ion 21700 pack incl. wiring
+  propulsion: 0.30            # motor, ESC, folding 13x8 pusher prop
+  avionics: 0.30              # autopilot, GNSS, telemetry radio, airspeed sensor
+  payload: 0.65               # 2-axis EO/thermal gimbal + companion computer
+inertia_kgm2:                 # scaled from the Zagi by m*b^2 (roll/yaw) and m*c^2 (pitch)
+  Jx: 0.47
+  Jy: 0.085
+  Jz: 0.70
+  Jxz: 0.006
+
+aero:                         # body-axis stability derivatives, per rad
+  CL0: 0.15
+  CL_alpha: 4.5
+  CL_q: 3.0
+  CL_de: 0.30
+  alpha_stall_deg: 10.0       # blend centre of the post-stall flat-plate model
+  stall_sharpness: 50.0       # M in Beard & McLain's sigmoid
+  CD_p: 0.025                 # parasite drag incl. gimbal pod and winglets
+  oswald_e: 0.85
+  CD_de2: 0.30                # elevon drag, x de^2
+  Cm0: 0.020                  # reflexed section
+  Cm_alpha: -0.40             # ~9 % MAC static margin
+  Cm_q: -1.8
+  Cm_de: -0.35
+  CY_beta: -0.15
+  CY_p: 0.0
+  CY_r: 0.0
+  CY_da: 0.0
+  Cl_beta: -0.05
+  Cl_p: -0.45
+  Cl_r: 0.05
+  Cl_da: 0.17
+  Cn_beta: 0.030              # winglets; the plain Zagi has ~0
+  Cn_p: -0.013
+  Cn_r: -0.030
+  Cn_da: -0.004
+
+propulsion:
+  prop_diameter_m: 0.33       # 13 in
+  CT: [0.09357, -0.06044, -0.1079]   # C_T(J) = CT0 + CT1 J + CT2 J^2
+  CQ: [0.005230, 0.004970, -0.01664] # C_Q(J)
+  motor_kv_rpm_per_v: 380
+  motor_resistance_ohm: 0.08
+  motor_no_load_current_a: 0.6
+  esc_efficiency: 0.95
+  max_current_a: 40
+
+battery:
+  cells_series: 6
+  cells_parallel: 2
+  cell_capacity_ah: 5.0
+  cell_v_full: 4.15
+  cell_v_empty: 3.30
+  usable_fraction: 0.85       # reserve kept for landing/margin
+  hotel_power_w: 18           # avionics + payload + radio
+
+limits:
+  elevon_max_deg: 25
+  servo_time_constant_s: 0.04
+  bank_max_deg: 40
+  pitch_min_deg: -20
+  pitch_max_deg: 20
+  airspeed_min_mps: 15.5      # 1.2 Vs at 2000 m
+  airspeed_cruise_mps: 18
+  airspeed_max_mps: 28
+  launch_speed_mps: 16        # bungee/catapult exit speed

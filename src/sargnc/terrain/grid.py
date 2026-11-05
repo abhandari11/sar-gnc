@@ -55,7 +55,8 @@ class TerrainGrid:
 
     def _query(self, x: ArrayLike, y: ArrayLike, method: Method) -> tuple[NDArray, NDArray, NDArray]:
         xb, yb = np.broadcast_arrays(np.asarray(x, float), np.asarray(y, float))
-        h, gx, gy = K.sample(self.z, self.x0, self.y0, self.d, xb.ravel(), yb.ravel(), _METHODS[method])
+        fn = K.sample if xb.size >= 256 else K.sample_serial
+        h, gx, gy = fn(self.z, self.x0, self.y0, self.d, xb.ravel(), yb.ravel(), _METHODS[method])
         return h.reshape(xb.shape), gx.reshape(xb.shape), gy.reshape(xb.shape)
 
     def elevation(self, x: ArrayLike, y: ArrayLike, method: Method = "bilinear") -> NDArray:

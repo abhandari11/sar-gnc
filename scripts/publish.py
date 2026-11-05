@@ -7,7 +7,7 @@ import argparse
 import shutil
 
 from sargnc.paths import outputs_dir, project_root
-from sargnc.viz.site import write_index
+from sargnc.viz.site import Manifest, write_index
 
 
 def main() -> None:
@@ -24,8 +24,11 @@ def main() -> None:
         dst = site / run
         if dst.exists():
             shutil.rmtree(dst)
-        shutil.copytree(src, dst)
-        print(f"published {run} -> {dst}")
+        dst.mkdir(parents=True)
+        files = ["manifest.json"] + [a.file for a in Manifest.read(src).artifacts]
+        for f in files:
+            shutil.copy2(src / f, dst / f)
+        print(f"published {run} -> {dst} ({len(files)} files)")
     (site / ".nojekyll").touch()
     print(write_index(site))
 

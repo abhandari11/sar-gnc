@@ -1,0 +1,41 @@
+{
+  "run": "gildo_demo_meglisalp",
+  "title": "Gildo v0 \u00b7 gildo demo meglisalp",
+  "created": "2026-11-05 13:21 UTC",
+  "summary": {
+    "outcome": "mission complete at 15.6 min (simulated in 2.7 s)",
+    "wind": "6 m/s from 240\u00b0 (steady)",
+    "altitudes": "transit 1874 \u00b7 target orbit 1895 \u00b7 home hold 1262 m",
+    "min height above ground": "29 m (after launch)",
+    "airspeed range": "16.7\u201321.7 m/s",
+    "max bank": "42\u00b0",
+    "energy used": "27.8 Wh of 190 Wh usable",
+    "phases": "climb 0.1\u2032 \u2192 transit 2.4\u2032 \u2192 orbit 6.0\u2032 \u2192 return 8.0\u2032 \u2192 home 9.8\u2032 \u2192 done 15.6\u2032"
+  },
+  "artifacts": [
+    {
+      "file": "flight_map.png",
+      "title": "Ground track",
+      "kind": "image",
+      "caption": "Track coloured by mission phase over the terrain (100 m contours). Star = base camp, dashed circle = home loiter over Seealpsee, black outline = search region."
+    },
+    {
+      "file": "flight_3d.html",
+      "title": "Open interactive 3-D flight",
+      "kind": "html",
+      "caption": "Track over true-scale terrain; tap the line for time, altitude, AGL and airspeed."
+    },
+    {
+      "file": "flight_3d.png",
+      "title": "3-D preview",
+      "kind": "image",
+      "caption": "Static 3-D view of the flight."
+    },
+    {
+      "file": "time_histories.png",
+      "title": "Time histories",
+      "kind": "image",
+      "caption": "Altitude vs ground below, height above ground, airspeed, bank, pitch, battery power and energy. Background bands = mission phases."
+    }
+  ]
+}

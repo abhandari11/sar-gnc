@@ -1,8 +1,8 @@
 # CLAUDE.md — sar-gnc
 
 Terrain-aware GNC for a small flying-wing UAV doing search and rescue in mountains.
-Stage 1 (current): simulation environment, covering terrain, scenario, wind and visualisation.
-Stage 2: 6-DOF flight sim and autopilot. Stage 3: factor-graph search planner. See `docs/ROADMAP.md`.
+Stage 1: simulation environment (terrain, site/base, scenario, wind, visualisation); partly done.
+Stage 2 (started): Gildo flying wing, 6-DOF sim, autopilot; see `docs/GILDO.md`. Stage 3: factor-graph search planner. See `docs/ROADMAP.md`.
 
 ## Isolation rules (strict)
 - This machine also hosts a PX4/ROS 2 workspace (`~/Projects/px4_ws`, `~/Projects/ros2_workspace`,
@@ -17,6 +17,14 @@ Stage 2: 6-DOF flight sim and autopilot. Stage 3: factor-graph search planner. S
 - Don't start servers on 14540, 14550, 4560 or 11345. For a preview server use 8765, and only temporarily.
 
 ## Conventions
+- Configs:
+  - `configs/sites/<site>.yaml`: fixed map extent and base camp.
+  - `configs/<scenario>.yaml`: site + search polygons.
+  - `configs/aircraft/<name>.yaml`: the aircraft.
+  - `configs/flights/<run>.yaml`: scenario + aircraft + wind + mission.
+- The base camp is fixed per site; every flight launches from and returns to it.
+- Flight dynamics use **NED world / FRD body** with quaternions (`aircraft/_core.py`, numba).
+  Convert with `aircraft.rotations.enu_to_ned`. Planning, terrain and plots stay in ENU.
 - Frame: local **ENU** (x = East, y = North, z = Up) in metres. Origin is the search-area centre at
   height 0 of the DEM vertical datum, so z reads as altitude above sea level (see DECISIONS D5).
 - Terrain grid: `z[i, j]` is at `(x0 + j*d, y0 + i*d)`, where row i increases **northward**.
@@ -39,5 +47,7 @@ source scripts/env.sh
 pytest
 python scripts/fetch_dem.py configs/alpstein_meglisalp.yaml       # download + cache terrain
 python scripts/run_scenario.py configs/alpstein_meglisalp.yaml    # -> outputs/<run>/
+python scripts/run_aircraft.py gildo                              # spec + performance + modes
+python scripts/run_flight.py configs/flights/gildo_demo_meglisalp.yaml   # closed-loop demo flight
 python scripts/publish.py [run ...]                               # -> docs/site/ + index.html
 ```

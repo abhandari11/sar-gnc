@@ -107,6 +107,21 @@ def sample(z, x0, y0, d, xs, ys, method):
     return h, gx, gy
 
 
+@njit(cache=True)
+def sample_serial(z, x0, y0, d, xs, ys, method):
+    """Serial variant of sample() for small batches (no thread start-up cost)."""
+    n = xs.shape[0]
+    h = np.empty(n)
+    gx = np.empty(n)
+    gy = np.empty(n)
+    for k in range(n):
+        if method == BICUBIC:
+            h[k], gx[k], gy[k] = _bicubic(z, x0, y0, d, xs[k], ys[k])
+        else:
+            h[k], gx[k], gy[k] = _bilinear(z, x0, y0, d, xs[k], ys[k])
+    return h, gx, gy
+
+
 @njit(cache=True, inline="always")
 def _first_root(a2, a1, a0, s_max):
     """Smallest s in [0, s_max] with a2 s^2 + a1 s + a0 <= 0 given a0 > 0; else NaN."""
