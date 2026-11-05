@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>sar-gnc — results</title><style>
+:root { --bg:#faf9f6; --card:#ffffff; --ink:#1f1f1d; --muted:#5f5e5a; --line:#e4e2dc; --accent:#256abf; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#171716; --card:#22221f; --ink:#ecebe6; --muted:#a5a39b; --line:#383835; --accent:#86b6ef; } }
+:root[data-theme="dark"] { --bg:#171716; --card:#22221f; --ink:#ecebe6; --muted:#a5a39b; --line:#383835; --accent:#86b6ef; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; }
+h1 { font-size: 1.45rem; margin: 0 0 4px; }
+h2 { font-size: 1.15rem; margin: 0 0 2px; }
+.sub { color: var(--muted); margin: 0 0 20px; font-size: .92rem; }
+section.run { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px; margin: 0 0 20px; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 10px 0 14px; font-size: .9rem; }
+dt { color: var(--muted); } dd { margin: 0; font-variant-numeric: tabular-nums; }
+figure { margin: 14px 0 0; }
+figure img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); display:block; }
+figcaption { color: var(--muted); font-size: .88rem; margin-top: 6px; }
+a.btn { display: block; text-align: center; padding: 14px; border-radius: 10px; margin-top: 14px;
+  background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; }
+@media (prefers-color-scheme: dark) { a.btn { color:#0d1b2e; } }
+</style></head><body><main><h1>sar-gnc — results</h1><p class="sub">Terrain-aware GNC for SAR in mountains · Stage 1: simulation environment</p><section class="run"><h2>Alpstein Meglisalp</h2><p class="sub">run <code>alpstein_meglisalp</code> · 2026-11-05 07:47 UTC</p><dl><dt>centre</dt><dd>47.2493 N, 9.3800 E</dd><dt>search area</dt><dd>1.4 × 1.4 km</dd><dt>DEM domain</dt><dd>4.0 × 4.0 km (buffer 1300 m)</dd><dt>grid</dt><dd>801 × 801 @ 5 m</dd><dt>source</dt><dd>swissalti3d 2 m</dd><dt>search-area elevation</dt><dd>1515–2221 m</dd><dt>slope median / p90</dt><dd>32° / 57°</dd></dl><figure><a href="alpstein_meglisalp/terrain_map.png"><img src="alpstein_meglisalp/terrain_map.png" alt="Terrain map" decoding="async"></a><figcaption>Tinted hillshade, 50 m contours (250 m labelled). Black box = search area; + = ENU origin.</figcaption></figure><a class="btn" href="alpstein_meglisalp/terrain_3d.html">Open interactive 3-D terrain ↗</a><figcaption>Drag to rotate, pinch to zoom. True vertical scale. 1.0 MB.</figcaption><figure><a href="alpstein_meglisalp/terrain_3d.png"><img src="alpstein_meglisalp/terrain_3d.png" alt="3-D preview" decoding="async"></a><figcaption>Static render of the 3-D view from the south-east; black line = search area.</figcaption></figure></section></main></body></html>
