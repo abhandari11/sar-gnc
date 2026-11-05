@@ -7,7 +7,7 @@ mountainous terrain.
 queries, and exact ray casting / line of sight are done. Scenario, wind and the full visualisation
 set are next. See [docs/ROADMAP.md](docs/ROADMAP.md).
 
-Published results: [docs/site/](docs/site/index.html).
+Published results (phone-friendly): **https://abhandari11.github.io/sar-gnc/site/** (source: [docs/site/](docs/site/index.html)).
 
 ## Setup (Ubuntu 22.04, headless, no GPU)
 ```bash

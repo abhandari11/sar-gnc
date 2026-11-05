@@ -8,7 +8,7 @@
 - [x] **T2** Unit tests on plane / cone / Gaussian hill
 - [x] First visualisation: hillshade + contours map PNG, interactive 3-D plotly page, 3-D preview PNG
 - [x] `scripts/publish.py` → `docs/site/` with a mobile index page
-- [ ] GitHub repo + push (waiting on gh login and the public/private choice)
+- [x] Public GitHub repo + Pages from `/docs`: https://abhandari11.github.io/sar-gnc/site/
 - [ ] **T3 Scenario YAML:** launch/home, priors (weighted polygons + Gaussian blobs → normalised grid),
       no-fly zones, hidden targets, wind block, validation with clear errors
 - [ ] **T4 Wind:** steady + Dryden (seeded), `TerrainWindModel` interface + ridge-lift/lee-sink placeholder
@@ -24,12 +24,11 @@
 - Combines vehicle performance/energy, terrain, wind, sensor detection model and the scenario prior
 
 ## Open questions
-1. Repo visibility: public (GitHub Pages hosts the interactive 3-D pages) or private (PNGs only)?
-2. Sensor model for Stage 3: camera FOV and detection probability vs. range and incidence angle. This
+1. Sensor model for Stage 3: camera FOV and detection probability vs. range and incidence angle. This
    decides whether LOS should target a point on the ground or a person-height offset.
-3. Vertical datum: heights are LN02 (≈ MSL). When Stage 2 simulates GNSS, decide whether to add a
+2. Vertical datum: heights are LN02 (≈ MSL). When Stage 2 simulates GNSS, decide whether to add a
    geoid model (EGM2008) or keep everything in orthometric height.
-4. Is a second test area wanted outside Switzerland (e.g. USGS 3DEP, US Rockies)? That needs a second
+3. Is a second test area wanted outside Switzerland (e.g. USGS 3DEP, US Rockies)? That needs a second
    `DemSource`.
-5. Vehicle class assumptions (wingspan, cruise speed, minimum turn radius) set the buffer and
+4. Vehicle class assumptions (wingspan, cruise speed, minimum turn radius) set the buffer and
    resolution; 1.3 km and 5 m are placeholders until Stage 2 picks the airframe.

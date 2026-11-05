@@ -22,4 +22,7 @@
   - Hillshade was lit from the SW instead of the NW because `LightSource` assumes row 0 = north. It now
     shades the flipped array.
   - The 3-D title overlapped the plotly toolbar at phone width. The toolbar is now vertical.
-- **Next:** GitHub push (needs gh device login + visibility choice), then T3 scenario schema.
+- **GitHub:** gh 2.4 (Ubuntu package) device login into `.gh/`. The first code expired, the second
+  worked. Created the public repo `abhandari11/sar-gnc` and enabled Pages from `/docs`. Results are at
+  https://abhandari11.github.io/sar-gnc/site/. `~/.gitconfig` and `~/.config/gh` are unchanged.
+- **Next:** T3 scenario schema (priors, no-fly zones, targets, wind block).

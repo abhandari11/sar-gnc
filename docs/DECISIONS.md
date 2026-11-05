@@ -41,7 +41,7 @@ Each decision is a default chosen to keep moving. Revisit by editing the entry a
   2-step fixed point on height so each node's vertical is exact. Earth-curvature drop is included
   (≈ 0.3 m at the domain corner).
 - LN02 orthometric heights are treated as ellipsoidal in that transform. The geoid offset is about
-  constant (~50 m) over 4 km, so it only shifts the frame vertically; see open question 3.
+  constant (~50 m) over 4 km, so it only shifts the frame vertically; see ROADMAP open question 2.
 - Stage 2 will add ENU ↔ NED helpers for the flight dynamics. Planning stays in ENU.
 
 ## D6: Interpolation defaults
@@ -86,3 +86,12 @@ Each decision is a default chosen to keep moving. Revisit by editing the entry a
 - `GH_CONFIG_DIR=.gh/` is set because the global gh token had expired; logging in again would have
   rewritten `~/.config/gh`.
 - `NUMBA_THREADING_LAYER=omp` is set because the system TBB is too old for numba.
+
+## D11: Public repo, GitHub Pages served from `/docs` on `main`
+- The user chose public so the interactive 3-D pages open in a phone browser.
+- Pages serves `/docs` (`docs/.nojekyll`, files served raw), so the results index is at
+  https://abhandari11.github.io/sar-gnc/site/.
+- No Actions workflow, because the gh token has `repo` scope only. Pushing `.github/workflows` would
+  need the `workflow` scope.
+- Pushes authenticate through a credential helper set only in this repo's `.git/config`, which calls
+  `gh auth git-credential` with the project-local `GH_CONFIG_DIR`.
