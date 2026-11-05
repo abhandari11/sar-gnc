@@ -1,0 +1,19 @@
+# Alpstein (Appenzell, CH). Fixed map + base camp shared by every scenario at this site.
+site:
+  name: alpstein
+  origin: {lat: 47.2493, lon: 9.3800}      # ENU (0, 0); z = metres above sea level
+  extent_m:
+    east: [-2000, 2600]
+    north: [-2000, 3400]
+  resolution_m: 5.0
+  dem_source: swissalti3d
+  min_edge_margin_m: 1000                  # base, loiter and search regions keep this far from edges
+
+base:
+  name: Base camp Seealpsee
+  position_m: {east: 1020, north: 1945}    # requested (1000, 2000); nearest level dry pad, 1147 m
+  launch_heading_deg: 72                   # ENE along the lake axis, towards the home loiter
+  home_loiter:                             # climb-out / return circle, entirely over Seealpsee
+    center_m: {east: 1500, north: 2100}
+    radius_m: 90
+    height_agl_m: 120

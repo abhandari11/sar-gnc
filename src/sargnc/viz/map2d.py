@@ -13,7 +13,10 @@ import numpy as np
 from matplotlib.colors import LightSource, Normalize
 from matplotlib.cm import ScalarMappable
 
+from sargnc.scenario.region import SearchRegion
+from sargnc.scenario.site import Base
 from sargnc.terrain.grid import TerrainGrid
+from sargnc.terrain.siting import water_mask
 from sargnc.viz import style as S
 
 _HALO = [pe.withStroke(linewidth=3.0, foreground=S.HALO)]
@@ -26,12 +29,27 @@ def tinted_hillshade(t: TerrainGrid, azdeg: float = 315.0, altdeg: float = 40.0)
     return ls.shade(t.z[::-1], cmap=S.ELEVATION_CMAP, norm=norm, blend_mode="soft", dx=t.d, dy=t.d, vert_exag=1.0)[..., :3]
 
 
-def _draw_rect(ax, bounds, km: float, **kw) -> None:
-    e0, e1, n0, n1 = (b / km for b in bounds)
-    ax.plot([e0, e1, e1, e0, e0], [n0, n0, n1, n1, n0], **kw)
+def _draw_region(ax, region: SearchRegion, km: float) -> None:
+    for v in region.polygons:
+        e, n = np.append(v[:, 0], v[0, 0]) / km, np.append(v[:, 1], v[0, 1]) / km
+        ax.plot(e, n, color=S.HALO, lw=4.5, solid_joinstyle="miter")
+        ax.plot(e, n, color=S.SEARCH, lw=2.0, solid_joinstyle="miter")
+    e0, _, _, n1 = (b / km for b in region.bounds)
+    ax.text(e0 + 0.04, n1 - 0.06, region.name, va="top", fontsize=11, weight="bold", path_effects=_HALO)
 
 
-def terrain_map(t: TerrainGrid, path: Path, title: str, search_bounds=None, contour_m: float = 50.0) -> Path:
+def _draw_base(ax, base: Base, km: float) -> None:
+    lo = base.home_loiter
+    th = np.linspace(0, 2 * np.pi, 120)
+    ax.plot((lo.east + lo.radius_m * np.cos(th)) / km, (lo.north + lo.radius_m * np.sin(th)) / km,
+            color=S.INK, lw=1.2, ls=(0, (3, 2)), path_effects=_HALO)
+    ax.plot(base.east / km, base.north / km, marker="*", ms=22, color=S.BASE, mec=S.HALO, mew=1.5, zorder=5)
+    ax.text(base.east / km - 0.08, base.north / km, base.name, ha="right", va="center", fontsize=11,
+            weight="bold", path_effects=_HALO, zorder=5)
+
+
+def terrain_map(t: TerrainGrid, path: Path, title: str, region: SearchRegion | None = None,
+                base: Base | None = None, contour_m: float = 50.0) -> Path:
     """Write the hillshade/contour map PNG; axes in km of local ENU."""
     km = 1000.0
     e0, e1, n0, n1 = t.bounds
@@ -40,6 +58,9 @@ def terrain_map(t: TerrainGrid, path: Path, title: str, search_bounds=None, cont
                          "axes.labelcolor": S.INK, "xtick.color": S.INK_MUTED, "ytick.color": S.INK_MUTED})
     fig, ax = plt.subplots(figsize=S.PHONE_FIGSIZE, dpi=S.PHONE_DPI, layout="constrained")
     ax.imshow(tinted_hillshade(t), extent=ext, interpolation="bilinear")
+    water = water_mask(t)
+    if water.any():
+        ax.contourf(t.x / km, t.y / km, water.astype(float), levels=[0.5, 1.5], colors=[S.WATER])
 
     X, Y = t.x / km, t.y / km
     lo = np.ceil(t.z.min() / contour_m) * contour_m
@@ -49,11 +70,10 @@ def terrain_map(t: TerrainGrid, path: Path, title: str, search_bounds=None, cont
     cs = ax.contour(X, Y, t.z, levels=major, colors=S.INK, linewidths=0.7, alpha=0.7)
     ax.clabel(cs, fmt="%d", fontsize=8, inline_spacing=2)
 
-    if search_bounds is not None:
-        _draw_rect(ax, search_bounds, km, color=S.HALO, lw=4.5, solid_joinstyle="miter")
-        _draw_rect(ax, search_bounds, km, color=S.SEARCH, lw=2.0, solid_joinstyle="miter", label="search area")
-        sb = np.array(search_bounds) / km
-        ax.text(sb[0] + 0.04, sb[3] - 0.06, "search area", va="top", fontsize=11, weight="bold", path_effects=_HALO)
+    if region is not None:
+        _draw_region(ax, region, km)
+    if base is not None:
+        _draw_base(ax, base, km)
     ax.plot(0, 0, "+", color=S.INK, ms=10, mew=1.5)
 
     # scale bar + north arrow

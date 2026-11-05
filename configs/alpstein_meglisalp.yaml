@@ -1,8 +1,8 @@
-# Alpstein massif (Appenzell, CH): karst ridges and cliff bands between Saentis and Altmann.
-area:
-  name: alpstein_meglisalp
-  center: {lat: 47.2493, lon: 9.3800}
-  size_m: [1400, 1400]      # search rectangle, east x north
-  buffer_m: 1300            # DEM margin on every side for turns/orbits
-  resolution_m: 5.0
-  dem_source: swissalti3d
+# Placeholder search: Meglisalp basin and the Marwees cliff band. Will become user-drawn polygons.
+name: alpstein_meglisalp
+site: alpstein                 # configs/sites/alpstein.yaml (map + base camp)
+search:
+  name: Meglisalp
+  rectangle:
+    center_m: {east: 0, north: 0}
+    size_m: [1400, 1400]
