@@ -8,7 +8,7 @@ Stage 2 (started): Gildo flying wing, 6-DOF sim, autopilot; see `docs/GILDO.md`.
 - This machine also hosts a PX4/ROS 2 workspace (`~/Projects/px4_ws`, `~/Projects/ros2_workspace`,
   `/opt/ros/humble`) that is sourced from `~/.bashrc`. **Never read, write, build, run, import or
   symlink anything there.**
-- **Every command starts with** `cd ~/projects/sar-gnc && source scripts/env.sh`. env.sh unsets
+- **Every command starts with** `cd ~/Projects/sar-gnc && source scripts/env.sh`. env.sh unsets
   PYTHONPATH, ROS_*/AMENT_*/COLCON_*/CMAKE_PREFIX_PATH/LD_LIBRARY_PATH/ACADOS_*, strips ROS from PATH
   and activates `.venv`. It affects only the current shell.
 - Don't modify `~/.bashrc`, `~/.profile` or any global config. No global pip, apt or sudo.
@@ -47,6 +47,7 @@ source scripts/env.sh
 pytest
 python scripts/fetch_dem.py configs/alpstein_meglisalp.yaml       # download + cache terrain
 python scripts/run_scenario.py configs/alpstein_meglisalp.yaml    # -> outputs/<run>/
+python scripts/run_scenario.py configs/everest_south_col.yaml     # Everest: EBC base, South Col search
 python scripts/run_aircraft.py gildo                              # spec + performance + modes
 python scripts/run_flight.py configs/flights/gildo_demo_meglisalp.yaml   # closed-loop demo flight
 python scripts/publish.py [run ...]                               # -> docs/site/ + index.html

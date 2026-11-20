@@ -1,0 +1,9 @@
+# Search around Camp 4 on the South Col: the col plateau, the Geneva Spur / upper Lhotse-face
+# approach to the west, the lower Southeast Ridge towards the Balcony, and the rims of the
+# Kangshung (east) and Lhotse (south) faces. Placeholder until user-drawn polygons.
+name: everest_south_col
+site: everest                  # configs/sites/everest.yaml (map + base camp)
+search:
+  name: South Col / Camp 4
+  polygons:
+    - [[-700, -600], [-100, -900], [450, -600], [500, 100], [200, 800], [-350, 900], [-750, 300]]

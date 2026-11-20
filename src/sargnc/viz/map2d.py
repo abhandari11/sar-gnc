@@ -49,14 +49,22 @@ def _draw_base(ax, base: Base, km: float) -> None:
 
 
 def terrain_map(t: TerrainGrid, path: Path, title: str, region: SearchRegion | None = None,
-                base: Base | None = None, contour_m: float = 50.0) -> Path:
-    """Write the hillshade/contour map PNG; axes in km of local ENU."""
+                base: Base | None = None, contour_m: float | None = None) -> Path:
+    """Write the hillshade/contour map PNG; axes in km of local ENU.
+
+    contour_m defaults to 50 m, or 100 m when the map spans more than 2500 m of relief.
+    """
     km = 1000.0
     e0, e1, n0, n1 = t.bounds
     ext = (e0 / km, e1 / km, n0 / km, n1 / km)
+    if contour_m is None:
+        contour_m = 50.0 if np.ptp(t.z) <= 2500.0 else 100.0
     plt.rcParams.update({"font.size": 12, "axes.edgecolor": S.INK_MUTED, "text.color": S.INK,
                          "axes.labelcolor": S.INK, "xtick.color": S.INK_MUTED, "ytick.color": S.INK_MUTED})
-    fig, ax = plt.subplots(figsize=S.PHONE_FIGSIZE, dpi=S.PHONE_DPI, layout="constrained")
+    # Shrink the figure height for maps wider than tall so there is no blank band above them.
+    w, h = S.PHONE_FIGSIZE
+    h = min(h, (w - 0.8) * (n1 - n0) / (e1 - e0) + 1.9)
+    fig, ax = plt.subplots(figsize=(w, h), dpi=S.PHONE_DPI, layout="constrained")
     ax.imshow(tinted_hillshade(t), extent=ext, interpolation="bilinear")
     water = water_mask(t)
     if water.any():

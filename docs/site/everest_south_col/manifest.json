@@ -1,0 +1,34 @@
+{
+  "run": "everest_south_col",
+  "title": "Everest South Col",
+  "created": "2026-11-20 12:23 UTC",
+  "summary": {
+    "site": "everest \u00b7 origin 27.9744 N, 86.9319 E",
+    "map": "12.5 \u00d7 9.0 km \u00b7 418 \u00d7 301 @ 30 m",
+    "base": "Everest Base Camp \u00b7 E -7120 N 3650 \u00b7 5315 m",
+    "search region": "South Col / Camp 4 \u00b7 1.73 km\u00b2",
+    "search elevation": "7524\u20138312 m",
+    "slope median / p90": "34\u00b0 / 47\u00b0",
+    "source": "copernicus_glo30 30.9 m"
+  },
+  "artifacts": [
+    {
+      "file": "terrain_map.png",
+      "title": "Terrain map",
+      "kind": "image",
+      "caption": "Tinted hillshade, 50 m contours (250 m labelled). Red star = base camp, dashed circle = climb-out/return loiter, black outline = search region, + = ENU origin."
+    },
+    {
+      "file": "terrain_3d.html",
+      "title": "Open interactive 3-D terrain",
+      "kind": "html",
+      "caption": "Drag to rotate, pinch to zoom. True vertical scale. 0.2 MB."
+    },
+    {
+      "file": "terrain_3d.png",
+      "title": "3-D preview",
+      "kind": "image",
+      "caption": "Static 3-D view from the south-east; red diamond = base, black line = search region."
+    }
+  ]
+}

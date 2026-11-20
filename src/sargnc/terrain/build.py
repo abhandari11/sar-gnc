@@ -64,16 +64,22 @@ def build_terrain(spec: MapSpec) -> TerrainGrid:
         nodata = datasets[0].nodata
         mosaic, transform = merge(datasets, nodata=nodata if nodata is not None else -9999.0)
         crs = datasets[0].crs.to_string()
+        geographic = datasets[0].crs.is_geographic
     finally:
         for ds in datasets:
             ds.close()
     dem = mosaic[0].astype(np.float64)
     bad = ~np.isfinite(dem) | (dem == (nodata if nodata is not None else -9999.0))
 
-    ratio = spec.resolution_m / abs(transform.a)
-    if ratio > 1.0:
+    # Pixel size in metres per axis (geographic DEMs have degree pixels, narrower east-west).
+    px_e, px_n = abs(transform.a), abs(transform.e)
+    if geographic:
+        m_per_deg = np.pi / 180.0 * 6371000.0
+        px_e, px_n = px_e * m_per_deg * np.cos(np.radians(spec.origin_lat)), px_n * m_per_deg
+    ratio = np.array([spec.resolution_m / px_n, spec.resolution_m / px_e])
+    if ratio.max() > 1.0:
         filled = np.where(bad, np.nanmedian(np.where(bad, np.nan, dem)), dem)
-        dem = gaussian_filter(filled, sigma=0.5 * ratio)
+        dem = gaussian_filter(filled, sigma=0.5 * np.where(ratio > 1.0, ratio, 0.0))
 
     inv = ~transform
     u = np.full_like(ee, float(np.median(dem[~bad])))
@@ -90,7 +96,7 @@ def build_terrain(spec: MapSpec) -> TerrainGrid:
         "map": spec.name,
         "source": src.name,
         "source_crs": crs,
-        "native_resolution_m": abs(transform.a),
+        "native_resolution_m": round(float(max(px_e, px_n)), 1),
         "tiles": sorted(p.name for p in tiles),
     }
     return TerrainGrid(u, float(xs[0]), float(ys[0]), spec.resolution_m, frame, meta)

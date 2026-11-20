@@ -1,0 +1,19 @@
+# Everest south side (Khumbu, Nepal). Fixed map + base camp shared by every scenario at this site.
+site:
+  name: everest
+  origin: {lat: 27.9744, lon: 86.9319}     # South Col saddle in the DEM (7858 m); ENU (0, 0)
+  extent_m:
+    east: [-9500, 3000]                    # EBC + lower Khumbu glacier .. Kangshung face
+    north: [-3000, 6000]                   # Lhotse .. Changtse
+  resolution_m: 30.0                       # Copernicus GLO-30 native ~31 m N-S, ~27 m E-W
+  dem_source: copernicus_glo30
+  min_edge_margin_m: 1000
+
+base:
+  name: Everest Base Camp
+  position_m: {east: -7120, north: 3650}   # requested EBC 28.0072 N 86.8594 E; nearest pad <= 8 deg, 5315 m
+  launch_heading_deg: 215                  # SW, down the Khumbu glacier towards the home loiter
+  home_loiter:                             # climb-out / return circle over the glacier, below pad level
+    center_m: {east: -7500, north: 3100}
+    radius_m: 150                          # wider than Seealpsee: true airspeed is ~20 % higher at 5300 m
+    height_agl_m: 120

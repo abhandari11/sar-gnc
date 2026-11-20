@@ -18,7 +18,8 @@
 - [ ] **T4 Wind:** steady + Dryden (seeded), `TerrainWindModel` interface + ridge-lift/lee-sink placeholder
 - [ ] **T5 Viz:** prior heatmap / no-fly / launch / target overlays on the 2-D map; priors draped in 3-D;
       slope map; visibility map (fraction of the search area visible from altitude X)
-- [ ] **T6** Second example scenario (different terrain character), `run_scenario.py` produces everything
+- [x] **T6** Second example scenario: Everest south side (Copernicus GLO-30, 30 m), base at Everest
+      Base Camp, search polygon around Camp 4 on the South Col (`configs/everest_south_col.yaml`)
 
 ## Stage 2: 6-DOF flight sim and autopilot (started 2026-11-05, ahead of T3c–T5 at the user's request)
 - [x] Gildo v0 spec + config (`configs/aircraft/gildo.yaml`, `docs/GILDO.md`)
@@ -44,7 +45,8 @@
    decides whether LOS should target a point on the ground or a person-height offset.
 2. Vertical datum: heights are LN02 (≈ MSL). When Stage 2 simulates GNSS, decide whether to add a
    geoid model (EGM2008) or keep everything in orthometric height.
-3. Is a second test area wanted outside Switzerland (e.g. USGS 3DEP, US Rockies)? That needs a second
-   `DemSource`.
+3. ~~Second test area outside Switzerland~~: done with Copernicus GLO-30 (Everest, D20). Open: Gildo
+   v0 cannot fly the Everest scenario as configured (D21); does Stage 2 get a high-altitude variant
+   or a density-scheduled airspeed?
 4. Vehicle class assumptions (wingspan, cruise speed, minimum turn radius) set the buffer and
    resolution; 1.3 km and 5 m are placeholders until Stage 2 picks the airframe.

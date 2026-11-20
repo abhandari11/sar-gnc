@@ -17,7 +17,7 @@ Published results (phone-friendly): **https://abhandari11.github.io/sar-gnc/site
 
 ## Setup (Ubuntu 22.04, headless, no GPU)
 ```bash
-cd ~/projects/sar-gnc
+cd ~/Projects/sar-gnc
 python3 -m venv .venv
 source scripts/env.sh          # isolates the shell from ROS/PX4 and activates the venv
 pip install -e ".[dev]"
@@ -28,6 +28,7 @@ pip install "kaleido>=1" && plotly_get_chrome -y --path .cache/chrome   # option
 ```bash
 source scripts/env.sh
 python scripts/run_scenario.py configs/alpstein_meglisalp.yaml   # terrain map + 3-D, base, search region
+python scripts/run_scenario.py configs/everest_south_col.yaml    # Everest: EBC base, South Col / Camp 4 search
 python scripts/run_aircraft.py gildo                             # Gildo spec, performance, modes
 python scripts/run_flight.py configs/flights/gildo_demo_meglisalp.yaml   # closed-loop demo flight
 python scripts/publish.py                                        # copies to docs/site/, rebuilds index

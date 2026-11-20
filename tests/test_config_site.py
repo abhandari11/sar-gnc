@@ -97,3 +97,24 @@ def test_index_page(tmp_path):
     html = write_index(tmp_path).read_text()
     assert 'name="viewport"' in html and 'src="r1/a.png"' in html and 'href="r1/b.html"' in html
     assert "Run &lt;1&gt;" in html
+
+
+@pytest.mark.parametrize("cfg", ["alpstein_meglisalp.yaml", "everest_south_col.yaml"])
+def test_shipped_scenarios_load(cfg):
+    from sargnc.paths import project_root
+    sc = load_scenario(project_root() / "configs" / cfg)
+    assert sc.search.contains(0.0, 0.0)  # every scenario is centred on its ENU origin
+    assert sc.search.area_m2 > 0
+
+
+def test_copernicus_tile_ids(tmp_path, monkeypatch):
+    from sargnc.terrain import sources
+    src = sources.get_source("copernicus_glo30")
+    assert src.tile_id(27, 86) == "Copernicus_DSM_COG_10_N27_00_E086_00_DEM"
+    assert src.tile_id(-1, -71) == "Copernicus_DSM_COG_10_S01_00_W071_00_DEM"
+    got = []
+    monkeypatch.setattr(sources, "_download", lambda href, path: got.append(href))
+    paths = src.fetch(86.8, 27.9, 87.1, 28.05, tmp_path)
+    assert [p.name[22:36] for p in paths] == ["N27_00_E086_00", "N27_00_E087_00",
+                                              "N28_00_E086_00", "N28_00_E087_00"]
+    assert len(got) == 4 and got[0].startswith("https://copernicus-dem-30m.s3.amazonaws.com/")

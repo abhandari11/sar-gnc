@@ -68,3 +68,17 @@
   - T3c priors, no-fly zones and targets.
   - T4 Dryden + terrain wind into the sim.
   - Recovery at base.
+
+## 2026-11-20: session 3: Everest scenario
+- **Environment:** the project folder had moved from `~/projects` to `~/Projects`, so the venv's
+  `activate`, its console-script shebangs and the editable-install `.pth` pointed at a path that no
+  longer existed. Rewrote those paths inside `.venv` only. CLAUDE.md/README now say `~/Projects`.
+- **DEM:** new `copernicus_glo30` source (D20), 2 tiles (N27/N28 E086). Fixed the builder's
+  smoothing ratio for geographic-CRS DEMs.
+- **Site `everest`:** origin at the South Col saddle, base at Everest Base Camp (5315 m), loiter over
+  the Khumbu glacier (D21). Scenario `everest_south_col`: one polygon around Camp 4, 1.73 km²,
+  7524–8312 m, slope median 34° / p90 47°.
+- **Viz:** the 2-D map picks 100 m contours when relief exceeds 2500 m, and shrinks the figure height
+  for maps wider than tall. The Alpstein map is pixel-identical.
+- **Tests:** 45 passing (shipped scenarios load; Copernicus tile ids and fetch list).
+- **Not done:** a Gildo flight at Everest. v0's airspeed limits are below stall at 8000 m (D21).

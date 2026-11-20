@@ -178,3 +178,27 @@ Each decision is a default chosen to keep moving. Revisit by editing the entry a
 - Gildo climbs to the highest transit altitude while circling over the lake before leaving, and
   climbs back to the return altitude in the target orbit before returning.
 - This is deliberately simple and conservative; Stage 3 replaces it with a terrain-following planner.
+
+## D20: Copernicus GLO-30 as the global DEM source
+- swissALTI3D only covers Switzerland. Copernicus DEM GLO-30 is global, free and needs no login: one
+  1°×1° COG per tile on the AWS Open Data bucket (`copernicus-dem-30m`). Added as `copernicus_glo30`.
+- Heights are EGM2008 orthometric, so z still reads as altitude above sea level (D5 unchanged).
+- Its pixels are in degrees. The builder now converts pixel size to metres per axis before choosing the
+  anti-alias filter (it used to divide metres by degrees). swissALTI3D output is bit-identical.
+- 30 m smooths sharp summits: Everest reads 8736 m (true 8849), the South Col 7858 m (≈ 7906).
+  Good enough for planning; a finer DEM (e.g. HMA 8 m) can replace it behind the same interface.
+
+## D21: Everest site: origin at the South Col, base at EBC, Gildo not yet flown there
+- Origin is the South Col saddle found in the DEM (27.9744 N, 86.9319 E), following the
+  "origin = search-area centre" rule. Map 12.5 × 9 km at 30 m so EBC and the home loiter keep 1 km
+  of edge margin.
+- Base is the nearest pad to the EBC coordinates with slope ≤ 8° (10 m away, 5315 m). Launch heading
+  215° and the loiter 700 m SW sit over the descending Khumbu glacier, where nothing within 250 m of the
+  loiter centre rises above the pad. Loiter radius is 150 m because true airspeed is higher at 5300 m.
+- Search polygon (1.73 km², 7524–8312 m): col plateau, Geneva Spur approach, lower Southeast Ridge,
+  and the rims of the Kangshung and Lhotse faces. Placeholder until user-drawn input (T3d).
+- No demo flight. Gildo v0's fixed v_min 15.5 / v_cruise 18 m/s (TAS) are at or below its stall speed
+  at Camp 4 altitudes (≈ 18 m/s at 8200 m). The model still climbs about 3 m/s there. The 120 m
+  clearance rule would also put the target orbit near 8400 m, above the 8000 m+ terrain of the ridge.
+  Needs a density-scheduled airspeed (constant EAS), a ceiling search above 6000 m and real
+  cold/low-density propulsion derating before an Everest flight means anything.

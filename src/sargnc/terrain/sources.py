@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import re
 import time
 from pathlib import Path
@@ -58,25 +59,58 @@ class SwissAlti3D:
         for tile, (year, href) in sorted(assets.items()):
             path = dest / Path(href).name
             if not path.exists():
-                for attempt in range(3):
-                    try:
-                        with requests.get(href, timeout=120, stream=True) as r:
-                            r.raise_for_status()
-                            tmp = path.with_suffix(".part")
-                            with open(tmp, "wb") as f:
-                                for chunk in r.iter_content(1 << 20):
-                                    f.write(chunk)
-                            tmp.rename(path)
-                        break
-                    except requests.RequestException:
-                        if attempt == 2:
-                            raise
-                        time.sleep(2.0)
+                _download(href, path)
             paths.append(path)
         return paths
 
 
-SOURCES: dict[str, type] = {"swissalti3d": SwissAlti3D}
+class CopernicusGLO30:
+    """Copernicus DEM GLO-30 (~30 m, WGS84 / EGM2008), open COGs on the AWS Open Data bucket.
+
+    One 1x1 degree tile per integer lat/lon cell; ocean-only cells have no tile.
+    """
+
+    name = "copernicus_glo30"
+    crs = "EPSG:4326"
+    native_resolution_m = 30.0
+    _url = "https://copernicus-dem-30m.s3.amazonaws.com/{id}/{id}.tif"
+
+    @staticmethod
+    def tile_id(lat: int, lon: int) -> str:
+        ns, ew = ("N" if lat >= 0 else "S"), ("E" if lon >= 0 else "W")
+        return f"Copernicus_DSM_COG_10_{ns}{abs(lat):02d}_00_{ew}{abs(lon):03d}_00_DEM"
+
+    def fetch(self, lon_min: float, lat_min: float, lon_max: float, lat_max: float, dest: Path) -> list[Path]:
+        dest.mkdir(parents=True, exist_ok=True)
+        paths = []
+        for lat in range(math.floor(lat_min), math.floor(lat_max) + 1):
+            for lon in range(math.floor(lon_min), math.floor(lon_max) + 1):
+                tid = self.tile_id(lat, lon)
+                path = dest / f"{tid}.tif"
+                if not path.exists():
+                    _download(self._url.format(id=tid), path)
+                paths.append(path)
+        return paths
+
+
+def _download(href: str, path: Path, attempts: int = 3) -> None:
+    for attempt in range(attempts):
+        try:
+            with requests.get(href, timeout=120, stream=True) as r:
+                r.raise_for_status()
+                tmp = path.with_suffix(".part")
+                with open(tmp, "wb") as f:
+                    for chunk in r.iter_content(1 << 20):
+                        f.write(chunk)
+                tmp.rename(path)
+            return
+        except requests.RequestException:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(2.0)
+
+
+SOURCES: dict[str, type] = {"swissalti3d": SwissAlti3D, "copernicus_glo30": CopernicusGLO30}
 
 
 def get_source(name: str) -> DemSource:
