@@ -41,7 +41,7 @@ def load_flight(path: str | Path) -> FlightConfig:
     orb = _section(m.get("orbit", {"radius_m": 150, "turns": 2}), f"{w}:mission.orbit", {"radius_m", "turns"})
     spec = MissionSpec(
         airspeed=_num(m.get("airspeed_mps", 18.0), f"{w}:mission.airspeed_mps"),
-        clearance_m=_num(m.get("terrain_clearance_m", 120.0), f"{w}:mission.terrain_clearance_m"),
+        clearance_m=_num(m.get("terrain_clearance_m", 20.0), f"{w}:mission.terrain_clearance_m"),
         corridor_half_width_m=_num(m.get("corridor_half_width_m", 150.0), f"{w}:mission.corridor_half_width_m"),
         waypoints_en=wps,
         orbit_radius_m=_num(orb["radius_m"], f"{w}:mission.orbit.radius_m"),

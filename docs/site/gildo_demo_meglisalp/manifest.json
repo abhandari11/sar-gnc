@@ -1,16 +1,16 @@
 {
   "run": "gildo_demo_meglisalp",
   "title": "Gildo v0 \u00b7 gildo demo meglisalp",
-  "created": "2026-11-05 13:21 UTC",
+  "created": "2026-11-20 12:31 UTC",
   "summary": {
-    "outcome": "mission complete at 15.6 min (simulated in 2.7 s)",
+    "outcome": "mission complete at 14.1 min (simulated in 3.3 s)",
     "wind": "6 m/s from 240\u00b0 (steady)",
-    "altitudes": "transit 1874 \u00b7 target orbit 1895 \u00b7 home hold 1262 m",
+    "altitudes": "transit 1774 \u00b7 target orbit 1795 \u00b7 home hold 1262 m",
     "min height above ground": "29 m (after launch)",
     "airspeed range": "16.7\u201321.7 m/s",
-    "max bank": "42\u00b0",
-    "energy used": "27.8 Wh of 190 Wh usable",
-    "phases": "climb 0.1\u2032 \u2192 transit 2.4\u2032 \u2192 orbit 6.0\u2032 \u2192 return 8.0\u2032 \u2192 home 9.8\u2032 \u2192 done 15.6\u2032"
+    "max bank": "43\u00b0",
+    "energy used": "25.3 Wh of 190 Wh usable",
+    "phases": "climb 0.1\u2032 \u2192 transit 2.1\u2032 \u2192 orbit 5.4\u2032 \u2192 return 7.5\u2032 \u2192 home 9.3\u2032 \u2192 done 14.1\u2032"
   },
   "artifacts": [
     {

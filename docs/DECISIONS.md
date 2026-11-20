@@ -178,6 +178,9 @@ Each decision is a default chosen to keep moving. Revisit by editing the entry a
 - Gildo climbs to the highest transit altitude while circling over the lake before leaving, and
   climbs back to the return altitude in the target orbit before returning.
 - This is deliberately simple and conservative; Stage 3 replaces it with a terrain-following planner.
+- 2026-11-20: clearance lowered from 120 m to 20 m at the user's request (code default and demo
+  config). The demo still completes; min AGL stays 29 m (set right after launch). The home-loiter
+  `height_agl_m` (120 m) is a separate setting and is unchanged.
 
 ## D20: Copernicus GLO-30 as the global DEM source
 - swissALTI3D only covers Switzerland. Copernicus DEM GLO-30 is global, free and needs no login: one
@@ -199,6 +202,6 @@ Each decision is a default chosen to keep moving. Revisit by editing the entry a
   and the rims of the Kangshung and Lhotse faces. Placeholder until user-drawn input (T3d).
 - No demo flight. Gildo v0's fixed v_min 15.5 / v_cruise 18 m/s (TAS) are at or below its stall speed
   at Camp 4 altitudes (≈ 18 m/s at 8200 m). The model still climbs about 3 m/s there. The 120 m
-  clearance rule would also put the target orbit near 8400 m, above the 8000 m+ terrain of the ridge.
+  clearance rule would also have put the target orbit near 8400 m (now ~8330 m with 20 m, D19).
   Needs a density-scheduled airspeed (constant EAS), a ceiling search above 6000 m and real
   cold/low-density propulsion derating before an Everest flight means anything.

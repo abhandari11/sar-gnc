@@ -16,7 +16,7 @@ from sargnc.terrain.grid import TerrainGrid
 @dataclass(frozen=True)
 class MissionSpec:
     airspeed: float = 18.0
-    clearance_m: float = 120.0
+    clearance_m: float = 20.0
     corridor_half_width_m: float = 150.0
     waypoints_en: tuple[tuple[float, float], ...] = ()
     orbit_radius_m: float = 150.0

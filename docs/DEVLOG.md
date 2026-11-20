@@ -82,3 +82,7 @@
   for maps wider than tall. The Alpstein map is pixel-identical.
 - **Tests:** 45 passing (shipped scenarios load; Copernicus tile ids and fetch list).
 - **Not done:** a Gildo flight at Everest. v0's airspeed limits are below stall at 8000 m (D21).
+- **Terrain clearance** (D19 rule) lowered from 120 m to 20 m at the user's request. Demo flight
+  re-run: transit 1774 m (was 1874), 14.1 min, 25.3 Wh, min AGL 29 m; republished. The user is
+  reworking the aircraft specs for the Everest altitudes.
+- Pushed to GitHub so Pages shows the Everest scenario.

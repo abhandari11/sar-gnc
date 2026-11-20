@@ -84,7 +84,7 @@ live in `configs/aircraft/gildo.yaml`. Every number in this file is produced by
 - **Mission manager** (`sim/mission.py`): launch → climb (orbit the home loiter) → transit →
   target orbit → return → home hold.
   - Every altitude is the highest terrain in the leg's corridor (±150 m) or the orbit's disc,
-    plus clearance (120 m).
+    plus clearance (20 m; was 120 m before 2026-11-20).
   - Gildo reaches the transit altitude while circling over the lake before departing, so legs never
     climb into terrain.
 - **Run:** `python scripts/run_flight.py configs/flights/gildo_demo_meglisalp.yaml`. It simulates

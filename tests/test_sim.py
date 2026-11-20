@@ -38,7 +38,7 @@ def test_mission_over_synthetic_hill(wind):
     base = Base("B", 0.0, 0.0, 90.0, Loiter(300.0, 0.0, 90.0, 100.0))
     m = Mission(MissionSpec(waypoints_en=((1500.0, 1500.0),), orbit_radius_m=150.0, orbit_turns=1.0,
                             home_hold_s=20.0), base, t)
-    assert m.transit_alt == pytest.approx(1400.0 + 120.0, abs=2)
+    assert m.transit_alt == pytest.approx(1400.0 + 20.0, abs=2)
     r = simulate(ac, t, m, wind, t_max=1500.0)
     L = r.log
     assert r.outcome == "mission complete", r.events
